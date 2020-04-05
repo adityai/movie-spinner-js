@@ -1,4 +1,25 @@
-;
+const express = require('express');
+const app = express();
+const router = express.Router();
+const port = process.env.PORT || 3000;
+
+router.route('/spin')
+    .get((req, res) => {
+          const response = { "Selected movie": spinner() }
+          res.json(response);
+    });
+
+app.use("/api", router);
+
+app.get('/', (req, res) => {
+    res.send("Welcome to the movie spinner");
+});
+
+app.listen(port, () => {
+    console.log(`Running on port ${port}`);
+});
+
+function spinner(){
 var movie = [];;
 movie.push("Big Miracle | Netflix");
 movie.push("Big Fat Liar | Netflix");
@@ -85,5 +106,7 @@ movie.push("Gone in 60 Seconds| Amazon Prime Free");
 movie.push("Apollo 13| Amazon Prime Free");
 movie.push("Azorian: The Raising of the K-129| Amazon Prime Free");
 movie.push("The Spy Next Door | Amazon Prime Free");
-//print( movie[random.randrange(2, 84, 1)] );
-console.log(movie[Math.floor(Math.random() * 84) + 1]);
+selected = movie[Math.floor(Math.random() * 84) + 1];
+console.log(selected);
+return selected;
+}
